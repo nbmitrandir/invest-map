@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Инвестиционная карта</title>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header id="topbar">
+    <h2>🗺 Инвестиционная карта Алматинской области</h2>
+</header>
+
+<div id="layout">
+
+    <aside id="sidebar">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Поиск проекта">
+
+        <div class="filter">
+
+            <h3>Отрасль</h3>
+
+            <div id="sectorFilters"></div>
+
+        </div>
+
+        <div class="filter">
+
+            <h3>Финансирование</h3>
+
+            <div id="financingFilters"></div>
+
+        </div>
+
+        <div class="filter">
+
+            <h3>Район</h3>
+
+            <div id="districtFilters"></div>
+
+        </div>
+
+        <div class="filter">
+
+            <h3>Стадия проекта</h3>
+
+            <div id="stageFilters"></div>
+
+        </div>
+
+    </aside>
+
+    <div id="mapContainer">
+
+    <div id="stats">
+
+        <div class="statCard">
+            <div class="statTitle">Проектов</div>
+            <div id="statProjects" class="statValue">0</div>
+        </div>
+
+        <div class="statCard">
+            <div class="statTitle">Инвестиции</div>
+            <div id="statInvestment" class="statValue">0</div>
+        </div>
+
+        <div class="statCard">
+            <div class="statTitle">Раб. мест</div>
+            <div id="statJobs" class="statValue">0</div>
+        </div>
+
+        <div class="statCard">
+            <div class="statTitle">Проблемных</div>
+            <div id="statProblem" class="statValue">0</div>
+        </div>
+
+    </div>
+
+    <main id="map"></main>
+
+</div>
+
+    <aside id="infoPanel">
+
+        <h3>Информация о проекте</h3>
+
+        <p>Выберите проект на карте.</p>
+
+    </aside>
+
+</div>
+
+<footer id="statusBar">
+
+    Проектов: <span id="projectCount">0</span>
+
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+
+</html>

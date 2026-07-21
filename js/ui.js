@@ -113,7 +113,7 @@ export function showProjectList(projects){
 
         item.className = "projectItem";
 
-        item.textContent = project.name;
+        item.textContent = project.company;
 
         item.onclick = ()=>{
 

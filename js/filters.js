@@ -76,6 +76,8 @@ export function buildStageFilter(projects, currentValue, callback){
 
 function createButton(container, text, value, currentValue, click){
 
+    console.log(text, value, currentValue);
+    
     const btn = document.createElement("button");
 
     btn.textContent = text;

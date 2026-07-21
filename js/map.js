@@ -42,6 +42,22 @@ export function drawProjects(projects) {
 
         markers.push(marker);
 
+        if(markers.length === 1){
+
+    map.setView(markers[0].getLatLng(), 11);
+
+}
+
+else if(markers.length > 1){
+
+    const group = L.featureGroup(markers);
+
+    map.fitBounds(group.getBounds(),{
+        padding:[40,40]
+    });
+
+}
+
     });
 
 }

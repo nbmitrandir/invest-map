@@ -42,7 +42,7 @@ async function start() {
 );
 
     buildFinancingFilter(
-    source,
+    allProjects,
     filters.financing,
     filterFinancing
 );
@@ -126,7 +126,13 @@ function initSearch(){
 
 function filterSector(sector){
 
-    filters.sector = sector;
+    filters.sector =
+        filters.sector === sector ? "" : sector;
+
+    // Сбрасываем зависимые фильтры
+    filters.financing = "";
+    filters.district = "";
+    filters.stage = "";
 
     applyFilters();
 
@@ -134,7 +140,11 @@ function filterSector(sector){
 
 function filterFinancing(financing){
 
-    filters.financing = financing;
+    filters.financing =
+        filters.financing === financing ? "" : financing;
+
+    filters.district = "";
+    filters.stage = "";
 
     applyFilters();
 
@@ -142,7 +152,10 @@ function filterFinancing(financing){
 
 function filterDistrict(district){
 
-    filters.district = district;
+    filters.district =
+        filters.district === district ? "" : district;
+
+    filters.stage = "";
 
     applyFilters();
 
@@ -150,7 +163,8 @@ function filterDistrict(district){
 
 function filterStage(stage){
 
-    filters.stage = stage;
+    filters.stage =
+        filters.stage === stage ? "" : stage;
 
     applyFilters();
 
@@ -211,16 +225,66 @@ function applyFilters(){
 
     });
 
-    const source =
+const financingSource = allProjects.filter(p => {
 
-        filters.sector
+    if (filters.sector && p.sector !== filters.sector)
+        return false;
 
-            ? allProjects.filter(p=>p.sector===filters.sector)
+    return true;
 
-            : allProjects;
+});
 
-    buildFinancingFilter(source, filterFinancing);
+const districtSource = allProjects.filter(p => {
 
-    redraw();
+    if(filters.sector && p.sector !== filters.sector)
+        return false;
+
+    if(filters.financing && p.financing !== filters.financing)
+        return false;
+
+    return true;
+
+});
+
+const stageSource = allProjects.filter(p => {
+
+    if(filters.sector && p.sector !== filters.sector)
+        return false;
+
+    if(filters.financing && p.financing !== filters.financing)
+        return false;
+
+    if(filters.district && p.district !== filters.district)
+        return false;
+
+    return true;
+
+});
+
+buildSectorFilter(
+    allProjects,
+    filters.sector,
+    filterSector
+);
+
+buildFinancingFilter(
+    financingSource,
+    filters.financing,
+    filterFinancing
+);
+
+buildDistrictFilter(
+    districtSource,
+    filters.district,
+    filterDistrict
+);
+
+buildStageFilter(
+    stageSource,
+    filters.stage,
+    filterStage
+);
+
+redraw();
 
 }

@@ -35,13 +35,29 @@ async function start() {
 
     initSearch();
 
-    buildSectorFilter(allProjects, filterSector);
+    buildSectorFilter(
+    allProjects,
+    filters.sector,
+    filterSector
+);
 
-    buildFinancingFilter(allProjects, filterFinancing);
+    buildFinancingFilter(
+    source,
+    filters.financing,
+    filterFinancing
+);
 
-    buildDistrictFilter(allProjects, filterDistrict);
+    buildDistrictFilter(
+    allProjects,
+    filters.district,
+    filterDistrict
+);
 
-    buildStageFilter(allProjects, filterStage);
+    buildStageFilter(
+    allProjects,
+    filters.stage,
+    filterStage
+);
 
 }
 

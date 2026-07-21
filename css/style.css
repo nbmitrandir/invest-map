@@ -227,3 +227,39 @@ input{
     color:#0f4c81;
 
 }
+
+.filterButton{
+
+    width:100%;
+
+    margin-bottom:6px;
+
+    padding:8px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:#f2f2f2;
+
+    transition:.2s;
+
+}
+
+.filterButton:hover{
+
+    background:#d9e9ff;
+
+}
+
+.filterButton.active{
+
+    background:#0d6efd;
+
+    color:white;
+
+    font-weight:bold;
+
+}

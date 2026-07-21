@@ -1,26 +1,28 @@
-export function buildSectorFilter(projects, callback) {
+export function buildSectorFilter(projects, currentValue, callback) {
 
     const container = document.getElementById("sectorFilters");
     container.innerHTML = "";
 
-    createButton(container, "Все", () => callback(""));
+    createButton(container, "Все", "", currentValue, () => callback(""));
 
-    const sectors = [...new Set(projects.map(p => p.sector))];
+    const sectors = [...new Set(projects.map(p => p.sector))]
+        .filter(Boolean)
+        .sort();
 
     sectors.forEach(sector => {
 
-        createButton(container, sector, () => callback(sector));
+        createButton(container, sector, sector, currentValue, () => callback(sector));
 
     });
 
 }
 
-export function buildFinancingFilter(projects, callback) {
+export function buildFinancingFilter(projects, currentValue, callback) {
 
     const container = document.getElementById("financingFilters");
     container.innerHTML = "";
 
-    createButton(container, "Все", () => callback(""));
+    createButton(container, "Все", "", currentValue, () => callback(""));
 
     const financing = [...new Set(projects.map(p => p.financing))]
         .filter(Boolean)
@@ -28,19 +30,18 @@ export function buildFinancingFilter(projects, callback) {
 
     financing.forEach(item => {
 
-        createButton(container, item, () => callback(item));
+        createButton(container, item, item, currentValue, () => callback(item));
 
     });
 
 }
 
-export function buildDistrictFilter(projects, callback) {
+export function buildDistrictFilter(projects, currentValue, callback) {
 
     const container = document.getElementById("districtFilters");
-
     container.innerHTML = "";
 
-    createButton(container, "Все", () => callback(""));
+    createButton(container, "Все", "", currentValue, () => callback(""));
 
     const districts = [...new Set(projects.map(p => p.district))]
         .filter(Boolean)
@@ -48,33 +49,32 @@ export function buildDistrictFilter(projects, callback) {
 
     districts.forEach(district => {
 
-        createButton(container, district, () => callback(district));
+        createButton(container, district, district, currentValue, () => callback(district));
 
     });
 
 }
 
-export function buildStageFilter(projects, callback){
+export function buildStageFilter(projects, currentValue, callback){
 
     const container = document.getElementById("stageFilters");
-
     container.innerHTML = "";
 
-    createButton(container, "Все", () => callback(""));
+    createButton(container, "Все", "", currentValue, () => callback(""));
 
     const stages = [...new Set(projects.map(p => p.stage))]
         .filter(Boolean)
         .sort();
 
-    stages.forEach(stage=>{
+    stages.forEach(stage => {
 
-        createButton(container, stage, () => callback(stage));
+        createButton(container, stage, stage, currentValue, () => callback(stage));
 
     });
 
 }
 
-function createButton(container, text, click){
+function createButton(container, text, value, currentValue, click){
 
     const btn = document.createElement("button");
 
@@ -82,19 +82,11 @@ function createButton(container, text, click){
 
     btn.className = "filterButton";
 
-    btn.dataset.group = container.id;
+    if(value === currentValue){
+        btn.classList.add("active");
+    }
 
-    btn.onclick = () => {
-
-    document
-        .querySelectorAll(`#${container.id} .filterButton`)
-        .forEach(button => button.classList.remove("active"));
-
-    btn.classList.add("active");
-
-    click();
-
-};
+    btn.onclick = click;
 
     container.appendChild(btn);
 

@@ -7,6 +7,7 @@ import {
     buildDistrictFilter,
     buildStageFilter
 } from "./filters.js";
+import { showProjectList } from "./ui.js";
 
 let allProjects = [];
 let filteredProjects = [];
@@ -75,10 +76,15 @@ function updateStats(){
     document.getElementById("statProjects").textContent =
         filteredProjects.length;
 
-    const investment = filteredProjects.reduce(
-        (sum,p)=>sum + Number(p.investment || 0),
-        0
-    );
+    const investment = filteredProjects.reduce((sum, p) => {
+
+    const value = String(p.investment ?? "0")
+        .replace(",", ".")
+        .replace(/[^\d.]/g, "");
+
+    return sum + (parseFloat(value) || 0);
+
+}, 0);
 
     const jobs = filteredProjects.reduce(
         (sum,p)=>sum + Number(p.jobs || 0),
@@ -107,6 +113,8 @@ const problems = filteredProjects.filter(p => {
 function redraw(){
 
     drawProjects(filteredProjects);
+
+    showProjectList(filteredProjects);
 
     updateCounter();
 

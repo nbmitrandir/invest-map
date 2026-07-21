@@ -21,6 +21,36 @@ export function getMap() {
     return map;
 }
 
+export function flyToProject(project){
+
+    if(!project.lat || !project.lng) return;
+
+    map.flyTo(
+        [project.lat, project.lng],
+        12,
+        {
+            duration: 1.2
+        }
+    );
+
+}
+
+export function openProject(project){
+
+    const marker = markers.find(m =>
+
+        m.project.name === project.name
+
+    );
+
+    if(marker){
+
+        marker.fire("click");
+
+    }
+
+}
+
 export function drawProjects(projects) {
 
     // Удаляем старые метки
@@ -33,14 +63,17 @@ export function drawProjects(projects) {
         if (!project.lat || !project.lng) return;
 
         const marker = L.marker([project.lat, project.lng])
-            .addTo(map)
-            .on("click", () => {
+    .addTo(map);
 
-                showProject(project);
+    marker.project = project;
 
-            });
+    marker.on("click", () => {
 
-        markers.push(marker);
+        showProject(project);
+
+    });
+
+    markers.push(marker);
 
         if(markers.length === 1){
 
@@ -54,6 +87,23 @@ else if(markers.length > 1){
 
     map.fitBounds(group.getBounds(),{
         padding:[40,40]
+    });
+
+}
+
+    // Автоматически показываем все найденные проекты
+if (markers.length === 1) {
+
+    map.setView(markers[0].getLatLng(), 11);
+
+}
+
+else if (markers.length > 1) {
+
+    const group = L.featureGroup(markers);
+
+    map.fitBounds(group.getBounds(), {
+        padding: [40, 40]
     });
 
 }

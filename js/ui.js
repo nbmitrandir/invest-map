@@ -1,6 +1,24 @@
+let selectedItem = null;
+
+import { flyToProject, openProject } from "./map.js";
+
 export function showProject(project) {
 
-    document.getElementById("infoPanel").innerHTML = `
+    document.querySelectorAll(".projectItem").forEach(item=>{
+
+    item.classList.remove("active");
+
+    if(item.textContent === project.name){
+
+        item.classList.add("active");
+
+        selectedItem = item;
+
+    }
+
+});
+
+    document.getElementById("projectInfo").innerHTML = `
 
         <h2>${project.name}</h2>
 
@@ -72,5 +90,51 @@ export function showProject(project) {
         <p>${project.status}</p>
 
     `;
+
+}
+
+export function showProjectList(projects){
+
+    const list = document.getElementById("projectList");
+
+    list.innerHTML = "<h3>Проекты</h3>";
+
+    if(projects.length === 0){
+
+        list.innerHTML += "<p>Нет проектов</p>";
+
+        return;
+
+    }
+
+    projects.forEach(project=>{
+
+        const item = document.createElement("div");
+
+        item.className = "projectItem";
+
+        item.textContent = project.name;
+
+        item.onclick = ()=>{
+
+    if(selectedItem){
+
+        selectedItem.classList.remove("active");
+
+    }
+
+    item.classList.add("active");
+
+    selectedItem = item;
+
+    flyToProject(project);
+
+    openProject(project);
+
+};
+
+        list.appendChild(item);
+
+    });
 
 }

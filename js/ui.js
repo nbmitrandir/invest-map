@@ -8,7 +8,7 @@ export function showProject(project) {
 
     item.classList.remove("active");
 
-    if(item.textContent === project.name){
+    if(item.textContent === project.company){
 
         item.classList.add("active");
 

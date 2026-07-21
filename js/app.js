@@ -85,9 +85,13 @@ function updateStats(){
         0
     );
 
-    const problems = filteredProjects.filter(
-        p=>p.stage.toLowerCase().includes("проблем")
-    ).length;
+const problems = filteredProjects.filter(p => {
+
+    return (p.stage ?? "")
+        .toLowerCase()
+        .includes("проблем");
+
+}).length;
 
     document.getElementById("statInvestment").textContent =
         investment.toLocaleString("ru-RU")+" млн ₸";

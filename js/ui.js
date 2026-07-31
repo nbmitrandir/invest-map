@@ -2,6 +2,10 @@ let selectedItem = null;
 
 import { flyToProject, openProject } from "./map.js";
 
+function value(v){
+    return (v === null || v === undefined || v === "") ? "-" : v;
+}
+
 export function showProject(project) {
 
     document.querySelectorAll(".projectItem").forEach(item=>{
@@ -48,7 +52,14 @@ export function showProject(project) {
 
             <tr>
                 <td><b>Сумма</b></td>
-                <td>${project.investment} млн ₸</td>
+                <td>${
+  typeof project.investment === "number"
+    ? project.investment.toLocaleString("ru-RU", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+      })
+    : project.investment
+} млн ₸</td>
             </tr>
 
             <tr>
@@ -58,7 +69,7 @@ export function showProject(project) {
 
             <tr>
                 <td><b>Ввод (РКС)</b></td>
-                <td>${project.commissioningRKS}</td>
+                <td>${value(project.commissioningRKS)}</td>
             </tr>
 
             <tr>

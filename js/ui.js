@@ -74,22 +74,22 @@ export function showProject(project) {
 
             <tr>
                 <td><b>Ввод (факт)</b></td>
-                <td>${project.commissioningFact}</td>
+                <td>${value(project.commissioningFact)}</td>
             </tr>
 
             <tr>
                 <td><b>Площадь</b></td>
-                <td>${project.area} га</td>
+                <td>${value(project.area)}${project.area !== "-" ? " га" : ""}</td>
             </tr>
 
             <tr>
                 <td><b>Мощность</b></td>
-                <td>${project.capacity}</td>
+                <td>${value(project.capacity)}</td>
             </tr>
 
             <tr>
                 <td><b>Стадия</b></td>
-                <td>${project.stage}</td>
+                <td>${value(project.stage)}</td>
             </tr>
 
         </table>
